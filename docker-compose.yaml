@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: web-container
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./web:/var/www
+
+  nginx:
+    image: nginx:1.19-alpine
+    container_name: nginx-container
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./web:/var/www
